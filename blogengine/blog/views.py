@@ -4,9 +4,15 @@ from django.views.generic import View
 
 from .models import Post, Tag
 from .utils import ObjectDetailMixin
+from .forms import TagForm
+
 
 # Create your views here.
-
+class TagCreate(View):
+    def get(self, request):
+        form = TagForm()
+        return render(request, 'blog/tag_create.html', context={'form': form})
+git
 
 def posts_list(request):
     posts = Post.objects.all()
