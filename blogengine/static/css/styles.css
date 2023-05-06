@@ -16,3 +16,7 @@
 .admin-panel:hover {
     opacity: 1;
 }
+
+a.edit, a.delete {
+    display: none;
+}
