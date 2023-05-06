@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 
-{% block title %}
-    {{ block.super }}
-{% endblock %}
-
-{% block content %}
-    <h1 class="mb-5">Tags</h1>
-
-    {% for tag in tags %}
-        <h3>{{ tag.title }}</h3>
-    {% endfor %}
-
+{% block admin-panel %}
+    <a href="" class="btn btn-light">Create</a>
+    <a href="" class="btn btn-light">Edit</a>
+    <a href="" class="btn btn-danger">Delete</a>
 {% endblock %}
