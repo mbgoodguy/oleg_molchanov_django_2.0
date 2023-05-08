@@ -1,7 +1,7 @@
 {% extends 'blog/blog_base.html' %}
 
 {% block title %}
-    text
+    {{ post.title }} - {{ block.super }}
 {% endblock %}
 
 {% block content %}
