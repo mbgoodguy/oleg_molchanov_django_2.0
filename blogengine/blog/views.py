@@ -3,11 +3,9 @@ from django.views.generic import View
 from .models import Post, Tag
 from .utils import ObjectDetailMixin, ObjectCreateMixin, ObjectUpdateMixin, ObjectDeleteMixin
 from .forms import TagForm, PostForm
-from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
-from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 class PostCreate(LoginRequiredMixin, ObjectCreateMixin, View):
@@ -66,11 +64,15 @@ def tags_list(request):
 
 
 def posts_list(request):
-    posts = Post.objects.all()
+    search_query = request.GET.get('search', '')
+    if search_query:
+        posts = Post.objects.filter(Q(title__icontains=search_query) | Q(body__contains=search_query))
+    else:
+        posts = Post.objects.all()
+
     paginator = Paginator(posts, 4)
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
-
     is_paginated = page.has_other_pages()
 
     if page.has_previous():
